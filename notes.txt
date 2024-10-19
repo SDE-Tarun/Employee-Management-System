@@ -1,0 +1,215 @@
+Step 1: Project Setup
+---------------------
+
+Open terminal and type command-
+1.cd Desktop
+2.npm create vite
+vite - yeh mujhe ek react folder banake dega
+
+Project name: ems
+Select a framework: React
+Select a variant: Javascript
+cd ems
+npm install
+code . - opens folder in vs code
+open terminal and type npm run dev command - Run project
+
+Step 2: Files clean
+-------------------
+
+Open App.jsx File, clean it first
+type rafce command so that it will give you a functional component
+
+App.jsx file-
+------------
+import React from 'react'
+
+const App = () => {
+    return(
+        <div>App</div>
+    )
+}
+
+export default App;
+
+Open index.css File
+
+index.css file-
+--------------
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'gilroy';
+}
+
+html,body{
+  height: 100%;
+  width: 100%;
+}
+
+body{
+    background-color: #111;
+}
+
+So In this project we are using Tailwind CSS.
+
+Step 3: Installing Tailwind CSS
+-------------------------------
+
+Google Tailwind CSS.
+Link: https://tailwindcss.com/
+Click on get started
+Go to framework guides
+Select Vite
+
+Install Tailwind CSS using the following commands-
+1. npm install -D tailwindcss postcss autoprefixer
+It will install  Tailwind CSS and its dependencies.
+2.  npx tailwindcss init -p
+It will create a tailwind.config.js file in your project.
+Open tailwind.config..js file and replace the content with this below-
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+It will tell Tailwind CSS will work on which files?
+index.html and files inside src folder having js, ts,  jsx, tsx extensions.
+
+Finally include these three lines below in index.css files-
+index.css file-
+--------------
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+As you are going towards dark theme so do this in index.css file-
+*{
+    color: #fff;
+}
+
+Step 4: Creating Folder Structure
+---------------------------------
+
+Create a folder named src inside your project-
+1. context folder- It is a state management tool by which you can pass data in components without using props.
+As you will make multiple components in your folder and you want data should reach to all components.
+I want to centrailized data and those component who want to use this data can access it easily.
+
+context folder contains two files-
+a. AuthContext.jsx file- It includes authorization and pehle se bane huye user names rahenge unko store karenge.
+Matlab meri website mein tarunkumar hi access kr skta hai aur koi nahi kar skta hai yeh hamne pehle se hi bana lia hai context. 
+b. TaskContent.jsx file
+
+2. components folder-  It is a folder where you will keep all your components.
+Isme hamare 3 folder rahenge Auth naam, Dashboard naam se aur TaskList naam se-
+a. components folder > Auth folder > Login.jsx file
+b. components folder > Dashboard folder > EmployeeDashboard.jsx file and AdminDashboard.jsx file
+c. components folder > TaskList folder > AcceptTask.jsx file, CompleteTask.jsx file, NewTask.jsx file and FailedTask.jsx file
+
+3. pages folder-  It is a folder where you will keep all your pages.
+
+4. utils folder-   It is a folder where you will keep all your utility functions.
+Isme localSotage.jsx file hai jisme hamne local storage ka use kiya hai.
+
+Step 5: Lets Start Working on App.jsx file-
+-------------------------------------------
+App.jsx file-
+------------
+Mujhe sabse pehle login form dikhana hai.
+Isliye hamne App.jsx file mein login form mount krenge.
+
+Login.jsx file-
+--------------- 
+Form banayenge aur fir usme login ka logic likhenge-
+form submit hone par ek function call krenge submitHandler().
+jese hi form submit krenge toh onSubmit pr submitHandler() function chlega jise form reload na ho.
+aur ek message dikhadu ki form submit hogya.
+
+<form onSubmit={(e) => {
+            submitHandler(e);
+          }}
+
+const submitHandler = (e) => {
+    e.preventDefault();
+    console.log("Hello Guys Form Submitted!!");
+  };
+
+Ab mein chahta hu ki form ki input field mein jo bhi mera value aaye mein vo save krlu.
+Toh mein uske liye useState banaunga email aur password ke liye.
+
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+Ab pehli baar ke liye mera email aur password khaali string rahega.
+Fir input field ki value meri email mein jo value padi hogi vahi hogi aur aise h  password ke liye .
+
+ <input value={email} />
+ <input value={password} />
+
+Aur ab jese hi mein kuch bhi value dalunga input field mein
+matlab ki change hone par value change hogi usko useState ke setemail and setpassword mein set krdunga.
+Iske liye hamne onChange event ka use kiya hai.
+
+ <input
+              value={email}
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
+/>
+
+Similarly, for Password field -
+
+ <input
+              value={password}
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
+/>
+
+Ab jese hi form submit krunga mera ek function chalega submitHandler(e) jisme event recieve kar raha hun.
+Jisme vo value mujhe mil rhi hogi jo input field mein padi hai.
+Jisko submit krne par dikhaunga.
+
+<form
+          onSubmit={(e) => {
+            submitHandler(e);
+            console.log("Email is", email);
+            console.log("Password is", password);
+            setemail("");
+            setpassword("");
+          }}
+
+/>
+
+Fir submit hone ke baad form ki value clear hojaye-
+
+setemail("");
+setpassword("");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
